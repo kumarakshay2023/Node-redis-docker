@@ -2,7 +2,12 @@ version: '3'
 services:
   redis-server:
     image: 'redis'
+    container_name: redis-server
+    restart: always
   node-app:
     build: .
+    container_name: node-app
     ports:
-      - '4001:8081'
+      - '4001:8080'  # Fix the port mismatch
+    depends_on:
+      - redis-server  # Ensures Redis starts before Node.js
